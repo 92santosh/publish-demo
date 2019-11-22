@@ -1,0 +1,67 @@
+<div style="overflow: hidden;"  fxLayout="row" fxLayoutAlign="center center">
+    <mat-card  fxFlex.gt-xs="50" fxFlex="100" fxLayout="column">
+        <div fxLayout="column">
+            <mat-form-field class="example-full-width">
+                <input [formControl] = "nameControl"matInput placeholder="Enter Name">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column">
+            <mat-radio-group [formControl]="genderCotrol" fxLayoutGap="15px" aria-label="Select an option">
+                <mat-radio-button  [value]="'male'">Male</mat-radio-button>
+                <mat-radio-button [value]="'female'">Female</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="line"></div>
+        <div fxLayout="row" fxLayoutGap="7px" style="overflow: auto;">
+            <mat-checkbox  (change)="setLanguage(language)" *ngFor="let language of languages" [checked]="language.checked" [value]="language.name" class="example-margin">{{language.name}}</mat-checkbox>
+        </div>
+        <div class="line"></div>
+        <div fxLayout="row">
+            <div fxFlex="1 0 auto" class="img">
+                <img [src]="imageBase64" alt="">
+            </div>
+            <div fxFlex>
+                <input (change)="fileChange($event)" type="file">
+            </div>
+        </div>
+        <div class="line"></div>
+        <button (click)="submit()" mat-raised-button color="primary">submit</button>
+        <div fxLayout="column" style="overflow: auto;">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+            
+                <!-- Name Column -->
+                <ng-container matColumnDef="gender">
+                  <th mat-header-cell *matHeaderCellDef> Gender </th>
+                  <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+                </ng-container>
+            
+                <!-- Weight Column -->
+                <ng-container matColumnDef="languages">
+                  <th mat-header-cell *matHeaderCellDef>Languages</th>
+                  <td mat-cell *matCellDef="let element"> {{element.languages}} </td>
+                </ng-container>
+            
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="photo">
+                  <th mat-header-cell *matHeaderCellDef>Photo </th>
+                  <td mat-cell *matCellDef="let element">
+                    <img class="img" [src]="element.photo">  
+                </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="headers"></tr>
+                <tr mat-row *matRowDef="let row; columns: headers;"></tr>
+              </table>
+            
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            
+        </div>
+    </mat-card>
+    <mat-divider></mat-divider>
+</div>
